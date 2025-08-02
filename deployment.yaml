@@ -29,9 +29,29 @@ kind: Service
 metadata:
   name: service-nginx
 spec:
-  #type: CLusterIP
+  type: LoadBalancer
   selector:
     app: aplikasi-nginx
   ports:
   - port: 8080
     targetPort: 80
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: ingress-nginx
+  labels:
+    name: ingress-nginx
+spec:
+  rules:
+  - host: pecel-lele.info
+    http:
+      paths:
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: service-nginx
+            port: 
+              number: 8080
