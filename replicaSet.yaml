@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: ReplicaSet
+metadata:
+  name: aplikasi-nginx-new
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: aplikasi-nginx-new
+  template:
+    metadata:
+      labels: 
+        app: aplikasi-nginx-new
+    spec:
+      containers:
+        - name: aplikasi-nginx-new
+          image: nginx:alpine
+          resources:
+            limits:
+              memory: "64Mi"
+              cpu: "100m"   
+          ports:
+            - containerPort: 80
